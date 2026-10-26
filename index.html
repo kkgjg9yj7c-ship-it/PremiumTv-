@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B14">
+<title>FluxTV — Premium</title>
+<style>
+:root{color-scheme:dark;--blue:#55baff;--bg:#070b14;--panel:#111d31;--muted:#8ba3c5}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#10274a 0%,var(--bg) 48%);color:#f4f8ff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;padding-bottom:90px}
+header{padding:22px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:25px;font-weight:800;letter-spacing:-1px}.logo span{color:var(--blue)}
+.pill{color:#75c8ff;font-size:10px;letter-spacing:2px}
+main{padding:0 18px;max-width:600px;margin:auto}
+.hero{padding:25px 20px;border:1px solid #24466e;border-radius:25px;background:linear-gradient(145deg,#163967,#0a1427 65%,#11172a);overflow:hidden}
+.eyebrow{font-size:10px;letter-spacing:2px;color:#6fc6ff}
+h1{font-size:35px;line-height:1.08;letter-spacing:-1.5px;margin:15px 0}
+p{color:var(--muted);line-height:1.6;font-size:14px}
+button,input{font:inherit}
+button{border:1px solid #294366;border-radius:13px;padding:12px 15px;color:#edf6ff;background:#15243a;cursor:pointer}
+.primary{background:linear-gradient(100deg,#247cff,#38b9ff);border:0;color:#041222;font-weight:750;width:100%;margin-top:12px}
+h2{font-size:19px;margin:27px 0 13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.tile{background:linear-gradient(145deg,#14243b,#0d1422);border:1px solid #20344f;border-radius:18px;padding:17px 14px;min-height:115px;text-align:left}
+.tile .ico{font-size:25px;display:block;margin-bottom:13px}
+.tile strong{display:block;font-size:14px}
+.tile small{display:block;color:var(--muted);margin-top:5px}
+.section{display:none}.section.active{display:block}
+nav{position:fixed;bottom:0;left:0;right:0;background:#080e19ed;backdrop-filter:blur(18px);border-top:1px solid #20314a;display:flex;justify-content:space-around;padding:12px 3px calc(12px + env(safe-area-inset-bottom));z-index:5}
+nav button{background:none;border:0;padding:6px 8px;color:#8da4c5;font-size:11px}
+nav button.active{color:var(--blue)}
+nav span{display:block;font-size:19px;margin-bottom:4px}
+.channel{display:flex;align-items:center;gap:12px;padding:13px;background:#101b2c;border:1px solid #20324a;border-radius:15px;margin:9px 0}
+.badge{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#1d78ff,#36c7e9);font-weight:800}
+.channel .info{flex:1}.channel small{color:var(--muted)}
+input{width:100%;padding:14px;border-radius:13px;border:1px solid #294366;background:#0d1727;color:white;margin:8px 0}
+.player{aspect-ratio:16/9;background:radial-gradient(ellipse,#153d6b,#03070d 70%);border:1px solid #264a70;border-radius:19px;display:grid;place-items:center;text-align:center;margin:15px 0}
+.player button{border-radius:50%;width:65px;height:65px;font-size:24px;color:var(--blue)}
+.note{font-size:12px;color:#829abb}
+</style>
+</head>
+<body>
+<header><div><div class="logo">◈ Flux<span>TV</span></div><div class="pill">THE NEXT TV EXPERIENCE</div></div><div>◉</div></header>
+<main>
+<section id="home" class="section active">
+<div class="hero"><div class="eyebrow">✦ ENTERTAINMENT REIMAGINED</div><h1>Le futur.<br>Sur ton écran.</h1><p>Ton univers TV, réuni dans une expérience unique.</p><div style="font-size:52px;text-align:center;padding:10px">◈</div><button class="primary" onclick="show('tv')">Explorer FluxTV →</button></div>
+<h2>Ton univers</h2><div class="grid">
+<button class="tile" onclick="show('tv')"><span class="ico">▣</span><strong>TV en direct</strong><small>Chaînes & flux</small></button>
+<button class="tile" onclick="show('vod')"><span class="ico">▧</span><strong>Cinéma</strong><small>Films & séries</small></button>
+<button class="tile" onclick="filterCat('Sport')"><span class="ico">◉</span><strong>Sport</strong><small>En direct</small></button>
+<button class="tile" onclick="show('fav')"><span class="ico">♡</span><strong>Favoris</strong><small>Ta sélection</small></button>
+</div><h2>Une autre façon de regarder.</h2><p>Une interface pensée pour être élégante, rapide et intuitive.</p></section>
+<section id="tv" class="section"><h1>TV en direct</h1><p>Choisis une chaîne de démonstration.</p><input id="search" placeholder="⌕ Rechercher..." oninput="renderChannels()"><div id="channels"></div><p class="note">Chaînes fictives : ajoute une source autorisée pour lire tes propres flux.</p></section>
+<section id="player" class="section"><button onclick="show('tv')">← Retour</button><h2 id="playingName">Lecteur FluxTV</h2><div class="player"><div><button onclick="alert('Le lecteur est prêt pour un flux compatible.')">▶</button><p>Aperçu du lecteur</p></div></div><p>La lecture réelle sera activée avec une source IPTV compatible.</p></section>
+<section id="vod" class="section"><h1>Bibliothèque</h1><div class="hero"><div class="eyebrow">TON CINÉMA PERSONNEL</div><h1>Films & séries</h1><p>Prépare ta bibliothèque en connectant une playlist qui fournit des contenus VOD.</p><button class="primary" onclick="show('sources')">Configurer une source</button></div></section>
+<section id="fav" class="section"><h1>Mes favoris</h1><div id="favorites"></div></section>
+<section id="sources" class="section"><h1>Mes sources</h1><p>Les informations restent à configurer dans une future version fonctionnelle.</p><label>Adresse de playlist M3U</label><input id="m3u" placeholder="https://.../playlist.m3u"><button class="primary" onclick="alert('La connexion réelle sera ajoutée dans la prochaine version. Ne partage pas ici tes identifiants IPTV.')">Préparer la connexion</button><h2>Xtream Codes</h2><p>La connexion au serveur sera ajoutée dans la prochaine étape. N'inscris pas encore tes identifiants.</p></section>
+</main>
+<nav><button class="active" data-tab="home" onclick="show('home')"><span>⌂</span>Accueil</button><button data-tab="tv" onclick="show('tv')"><span>▣</span>TV</button><button data-tab="vod" onclick="show('vod')"><span>▧</span>VOD</button><button data-tab="fav" onclick="show('fav')"><span>♡</span>Favoris</button><button data-tab="sources" onclick="show('sources')"><span>☷</span>Sources</button></nav>
+<script>
+const data=[{name:"Flux One",cat:"Découverte",icon:"F"},{name:"Arena Sport",cat:"Sport",icon:"A"},{name:"Cinema Lux",cat:"Films",icon:"C"},{name:"World News",cat:"Actualités",icon:"W"},{name:"Nova Series",cat:"Séries",icon:"N"},{name:"Nature 4K",cat:"Découverte",icon:"4K"}];
+let favorites=[];
+function show(id){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));if(id==='tv')renderChannels();if(id==='fav')renderFav();window.scrollTo(0,0)}
+function renderChannels(){const q=(document.getElementById('search')?.value||'').toLowerCase();document.getElementById('channels').innerHTML=data.filter(c=>c.name.toLowerCase().includes(q)).map(c=>`<div class="channel"><div class="badge">${c.icon}</div><div class="info"><strong>${c.name}</strong><br><small>${c.cat} · Démo</small></div><button onclick="play('${c.name}')">▶</button><button onclick="toggleFav('${c.name}')">♡</button></div>`).join('')}
+function play(name){document.getElementById('playingName').textContent=name;show('player')}
+function toggleFav(name){favorites.includes(name)?favorites=favorites.filter(n=>n!==name):favorites.push(name);renderChannels();renderFav()}
+function renderFav(){document.getElementById('favorites').innerHTML=favorites.length?favorites.map(n=>`<div class="channel"><strong>${n}</strong><button onclick="play('${n}')">▶</button><button onclick="toggleFav('${n}')">Retirer</button></div>`).join(''):'<p>Aucun favori pour le moment.</p>'}
+function filterCat(cat){show('tv');document.getElementById('search').value='';renderChannels()}
+renderChannels();
+</script>
+</body>
+</html>
